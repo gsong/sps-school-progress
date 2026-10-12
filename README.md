@@ -1,40 +1,60 @@
-# sps-school-progress
+# SPS School Progress
 
-A Claude plugin that checks how a student is doing at school. Ask Claude Desktop a plain question, such as "how is she doing in school?". Claude reads both school sites in its built-in browser and reports:
+Ask Claude "how is she doing in school?" and get one short report from The Source and Schoology: what needs attention, what's going well, and what's due soon.
 
-- Red flags: missing work, a course grade below 70%, an unexcused absence, or a score below 60% in the last two weeks.
-- Yellow flags: late work, a course grade from 70% up to 83%, tardies or excused absences on 3 or more school days in the last two weeks, or a negative teacher comment.
-- Bright spots: scores of 90% or more in the last two weeks, a positive teacher comment, or a grade trending up.
-- Coming up: assignments and events in the next 7 days, and tests, quizzes and projects in the next 14 days.
+It works for Seattle Public Schools families. The Source is the district's grades and attendance website, and Schoology is where teachers post assignments. Claude reads both with your parent logins, so you don't have to click through either one.
 
-The Source decides what counts as missing or late. Schoology's overdue list appears under Coming up as "not marked submitted in Schoology", never as a flag. Work turned in on paper shows up on that list too.
+You need a paid Claude plan and the Claude Desktop app. See [What you need](#what-you-need).
 
-Schoology shows only what teachers post. An empty Coming up means nothing was posted, not that nothing is due.
+## What the report tells you
 
-It works only with Seattle Public Schools' The Source (`ps.seattleschools.org`) and Schoology (`app.schoology.com`), signed in with a parent account that has one student.
+Each report has four parts.
 
-## Install
+- **Red flags** need action now. For example: a missing assignment, a class grade below 70%, an unexcused absence, or an assignment or test scored below 60% in the last two weeks.
+- **Yellow flags** are worth watching. For example: work turned in late, a class grade between 70% and 83% (C- to B-), arriving late on 3 or more school days in two weeks, excused absences on 3 or more school days in two weeks, or a teacher comment that sounds worried.
+- **Bright spots** are good news. For example: a score of 90% or more in the last two weeks, a teacher's praise, or a grade that keeps going up.
+- **Coming up** lists what's ahead: assignments and events in the next week, and tests, quizzes and projects in the next two weeks.
 
-In Claude Desktop, open Customize > Plugins > Add plugin > Add marketplace, and add `gsong/sps-school-progress`. Keep **Sync automatically** on, then add the plugin.
+You can also ask something narrower, such as "what's due this week?" or "how is she doing in science?".
 
-## Signing in
+## What you need
 
-The plugin stores no passwords. When a Check finds a school site signed out, Claude leaves its login page open in the browser pane. It asks you to sign in there and reply "done", then goes on.
+- **A paid Claude plan, such as Pro.** This doesn't work on Claude's free plan.
+- **The Claude Desktop app.** Claude needs the app's built-in web browser to open the school websites. A chat in a web browser at claude.ai can't do this. It was tested on a Mac.
+- **Your parent logins** for The Source and for Schoology. Each account should have one student on it.
 
-The Source signs you out after 10 minutes idle, so expect to sign in there on most Checks. Both sites sign you out when Claude Desktop quits.
+## Set it up, once
 
-The first time Claude opens each site, the browser asks you to approve it. Choose "always".
+1. Open Claude Desktop. Go to **Settings**, then **General**. Check that **Preferred browser** says **Built-in browser**.
+2. Go to **Customize**, then **Plugins**. Choose **Add plugin**, then **Add marketplace**, then **Add from a repository**.
+3. Type `gsong/sps-school-progress` and add it. Leave **Sync automatically** turned on, so you get fixes without doing anything.
+4. Find **SPS School Progress** under **Discover**, and choose **Add**.
+5. Start a new chat and ask "how is she doing in school?".
+6. Claude opens each school website in a browser panel next to the chat. The first time, Claude asks permission to use the site. Choose **always**, so it doesn't ask again.
+7. When Claude asks you to sign in, sign in inside that panel, then type "done" in the chat.
 
-A Check needs the browser's JavaScript tool. Without it, Claude stops and says so. Reading the pages alone would miss missing and late work.
+When the report appears, you're set up.
 
-## Layout
+## Each time you ask
+
+Claude doesn't keep your passwords. When a school website has signed you out, Claude shows its login page in the panel and waits. Sign in there, type "done", and Claude carries on.
+
+Expect to sign in to The Source most times. It signs you out after 10 minutes without use. Both websites also sign you out whenever you quit Claude Desktop.
+
+## Things to know
+
+- **Schoology's "overdue" list isn't the final word.** Work handed in on paper can still show as overdue there. The report lists these items under Coming up as "not marked submitted in Schoology". Only The Source decides whether work is missing.
+- **An empty Coming up means nothing was posted.** Some teachers don't put due dates in Schoology. It doesn't mean nothing is due.
+- **If a school website changes its layout,** Claude says which one it couldn't read, and still reports from the other. [Open an issue](https://github.com/gsong/sps-school-progress/issues) so it gets fixed.
+
+## For developers
 
 - `.claude-plugin/marketplace.json`: the marketplace.
-- `plugins/sps-school-progress/`: the plugin, with one skill, `check`, and its in-page scripts.
-- `docs/`: maintainer notes on how each school site's pages and JSON are laid out.
+- `plugins/sps-school-progress/`: the plugin, with one skill, `check`, and the scripts it runs inside each school website's page.
+- `docs/`: maintainer notes on how each school website's pages and data are laid out.
 - `test/`: offline tests with invented data.
 
-## Development
+CI runs the tests on every pull request and every push to `main`.
 
 ```bash
 pnpm install
