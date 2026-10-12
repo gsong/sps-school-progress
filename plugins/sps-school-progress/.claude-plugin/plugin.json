@@ -1,0 +1,9 @@
+{
+  "name": "sps-school-progress",
+  "displayName": "SPS School Progress",
+  "description": "Checks how a student is doing at a Seattle Public Schools school, from a parent's The Source and Schoology accounts.",
+  "author": {
+    "name": "George Song"
+  },
+  "license": "MIT"
+}

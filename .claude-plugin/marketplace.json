@@ -1,0 +1,14 @@
+{
+  "name": "sps-school-progress",
+  "description": "Checks how a student is doing in Seattle Public Schools' The Source and Schoology.",
+  "owner": {
+    "name": "George Song"
+  },
+  "plugins": [
+    {
+      "name": "sps-school-progress",
+      "source": "./plugins/sps-school-progress",
+      "description": "One skill that checks grades, missing work, attendance and what's coming up."
+    }
+  ]
+}
