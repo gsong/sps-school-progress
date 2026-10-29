@@ -6,7 +6,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "happy-dom": "^20.14.6",
+    "happy-dom": "^21.0.4",
     "vitest": "^5.0.3"
   },
   "packageManager": "pnpm@12.9.1"
